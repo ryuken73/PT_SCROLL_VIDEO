@@ -1,4 +1,5 @@
-import ScrollyVideo from 'scrolly-video/dist/ScrollyVideo.cjs.jsx';
+// import ScrollyVideo from 'scrolly-video/dist/ScrollyVideo.cjs.jsx';
+import ScrollyVideo from './scrolly/src/ScrollyVideo.jsx';
 import styled from 'styled-components';
 import { useSearchParams } from 'react-router-dom';
 
@@ -14,13 +15,14 @@ function App() {
   const transitionSpeed = searchParams.get('transition') || 10;
   console.log(mp4Url, useWebCodecs, typeof(useWebCodecs), height, transitionSpeed)
   return (
-    <Container style={{ height: `${height}vh` }}>
+    // <Container style={{ height: `${height}vh`, width: '800vw' }}>
+    <Container style={{ height: `${height}vh`, width: '200vw' }}>
       <ScrollyVideo 
         src={mp4Url} 
-        useWebCodecs={useWebCodecs} 
+        useWebCodecs={true} 
         transitionSpeed={transitionSpeed}
         frameThreshold={0.1}
-        debug={true}
+        debug={false}
       />
     </Container>
   );
