@@ -1,31 +1,33 @@
 import React from 'react';
 import ScrollVideo from './ScrollVideo';
 import Percentage from './Percentage';
+import PercentageContainer from './PercentageContainer';
 import TopRight from './TopRight';
 import styled from 'styled-components';
 import { useSearchParams } from 'react-router-dom';
+import { useLocalStorage } from '@uidotdev/usehooks'
 
 const Container = styled.div` `
 const DEFAULT_URL = "https://scrollyvideo.js.org/goldengate.mp4"
 const INITIAL_OPTIONS = {
   useWebCodecs: true,
-  direction: 'h',
   transitionSpeed: 100,
   length: 150,
 }
+const INITIAL_DIRECTION = 'h';
 
 const FULL_W_H = 100;
 // const HEIGHT_FOR_H = 100;
 
 function App() {
   const [options, setOptions] = React.useState(INITIAL_OPTIONS);
+  const [direction, saveDirection] = useLocalStorage('SBS-Scolly', INITIAL_DIRECTION);
   const [percentage, setPercentage] = React.useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const mp4Url = searchParams.get('url') || DEFAULT_URL;
   const {
     length,
     useWebCodecs, 
-    direction, 
     transitionSpeed
   } = options;
 
@@ -40,17 +42,24 @@ function App() {
     <Container style={{ height: `${height}vh`, width: `${width}vw` }}> 
       <TopRight
         options={options}
+        direction={direction}
         setOptions={setOptions}
+        saveDirection={saveDirection}
       ></TopRight>
-      <Percentage
+      {/* <Percentage
         direction={direction}
         percentage={percentage}
         setPercentage={setPercentage}
-      ></Percentage>
+      ></Percentage> */}
+      <PercentageContainer
+        direction={direction}
+        percentage={percentage}
+        setPercentage={setPercentage}
+      ></PercentageContainer>
       <ScrollVideo
         direction={direction}
         src={mp4Url} 
-        useWebCodecs={true} 
+        useWebCodecs={useWebCodecs} 
         transitionSpeed={transitionSpeed}
         frameThreshold={0.1}
         debug={false}
