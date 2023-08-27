@@ -5,7 +5,8 @@ import PercentageContainer from './PercentageContainer';
 import TopRight from './TopRight';
 import styled from 'styled-components';
 import { useSearchParams } from 'react-router-dom';
-import { useLocalStorage } from '@uidotdev/usehooks'
+// import { useLocalStorage } from '@uidotdev/usehooks'
+import useLocalStorage from './hooks/useLocalStorage';
 
 const Container = styled.div` `
 const DEFAULT_URL = "https://scrollyvideo.js.org/goldengate.mp4"
