@@ -38,13 +38,29 @@ const getNextValue = (key, currentValue) => {
 }
 
 function TopRight(props) {
-  const {options, setOptions} = props;
+  const {
+    options, 
+    setOptions, 
+    direction,
+    saveDirection
+  } = props;
   const {
     length,
-    direction,
     useWebCodecs,
     transitionSpeed
   } = options;
+  const [currentDirection, setCurrentDirection] = React.useState(direction);
+
+  const toggleDirection = React.useCallback(() => {
+    const nextDirection = getNextValue('direction', currentDirection);
+    setCurrentDirection(nextDirection);
+    saveDirection(nextDirection);
+    const reply = window.confirm('Need to reload to apply change. Reload OK?')
+    if(reply){
+      window.location.reload();
+    }
+  }, [currentDirection, saveDirection])
+
   const toggleOptions = React.useCallback((event) => {
     const key = event.target.id;
     setOptions(options => {
@@ -69,7 +85,7 @@ function TopRight(props) {
       </ToggleLength>
       <ToggleDirection
         id="direction"
-        onClick={toggleOptions}
+        onClick={toggleDirection}
       >
         {directionString}
       </ToggleDirection>
