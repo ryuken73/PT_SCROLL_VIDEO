@@ -21,6 +21,7 @@ const FULL_W_H = 100;
 
 function App() {
   const [options, setOptions] = React.useState(INITIAL_OPTIONS);
+  const [webCodecEnabled, setWebCodecEnabled] = React.useState(false);
   const [direction, saveDirection] = useLocalStorage('SBS-Scolly', INITIAL_DIRECTION);
   const [percentage, setPercentage] = React.useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -33,6 +34,11 @@ function App() {
 
   const height = direction === 'h' ? FULL_W_H : length;
   const width = direction === 'h' ? length : FULL_W_H;
+  React.useEffect(() => {
+    if (typeof VideoDecoder === 'function' && typeof EncodedVideoChunk === 'function') {
+      setWebCodecEnabled(true);
+    }
+  }, [])
   // const useWebCodecs = JSON.parse(searchParams.get('smooth')) || false;
   // const direction = searchParams.get('direction') || 'h';
   // const transitionSpeed = searchParams.get('transition') || 100;
@@ -45,6 +51,7 @@ function App() {
         direction={direction}
         setOptions={setOptions}
         saveDirection={saveDirection}
+        webCodecEnabled={webCodecEnabled}
       ></TopRight>
       {/* <Percentage
         direction={direction}

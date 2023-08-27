@@ -22,6 +22,9 @@ const ToggleDirection = styled.div`
   color: white;
 `
 const ToggleLength = styled(ToggleDirection)` `
+const WebCodecEnabled = styled(ToggleDirection)`
+  height: 100%;
+`
 
 const FAST = 150;
 const NORMAL = 250;
@@ -42,7 +45,8 @@ function TopRight(props) {
     options, 
     setOptions, 
     direction,
-    saveDirection
+    saveDirection,
+    webCodecEnabled
   } = props;
   const {
     length,
@@ -75,8 +79,14 @@ function TopRight(props) {
   const directionString = direction === 'v' ? 'VRT' : 'HRZ';
   const lengthString = length === FAST ? 'FAST' : 
     length === NORMAL ? 'NORM' : 'SLOW';
+  const webCodecString = webCodecEnabled ? 'HQ':'LQ';
   return (
     <Container>
+      <WebCodecEnabled
+        webCodecEnabled={webCodecEnabled}
+      >
+        {webCodecString}
+      </WebCodecEnabled>
       <ToggleLength
         id="length"
         onClick={toggleOptions}
