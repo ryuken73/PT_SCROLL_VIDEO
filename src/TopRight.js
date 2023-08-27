@@ -53,10 +53,10 @@ function TopRight(props) {
 
   const toggleDirection = React.useCallback(() => {
     const nextDirection = getNextValue('direction', currentDirection);
-    setCurrentDirection(nextDirection);
-    saveDirection(nextDirection);
     const reply = window.confirm('Need to reload to apply change. Reload OK?')
     if(reply){
+      setCurrentDirection(nextDirection);
+      saveDirection(nextDirection);
       window.location.reload();
     }
   }, [currentDirection, saveDirection])
