@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import VerticalPercentage from './VerticalPercentage';
 import HorizontalPercentage from './HorizontalPercentage';
 
-const Container = styled.div``
-
+const Container = styled.div`
+  display: none;
+`
 
 const getScrollPercentage = (direction) => {
   const scroll = direction === 'v' ? 

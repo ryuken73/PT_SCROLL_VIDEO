@@ -1,20 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ReactComponent as Harrow } from './images/h-arrow.svg'
+import { ReactComponent as Varrow } from './images/v-arrow.svg'
 
 const Container = styled.div`
   position: fixed;
-  top: 10px;
-  right: 10px;
+  top: 20px;
+  right: ${props => props.show ? '10px' : '-135px'};
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: grey;
-  opacity: 0.3;
+  background: transparent;
+  opacity: 0.5;
+  transition: all 1s;
+`
+const Dragger = styled.div`
+  border-radius: 10px;
+  width: 20px;
+  background: white !important;
+  height: 20px;
+  margin-right: 5px;
+  opacity: 0.2
 `
 const ToggleDirection = styled.div`
   font-family: monospace;
-  font-size: 15;
+  font-size: 15px;
   font-weight: bold;
   padding: 10px;
   padding-top: 5px;
@@ -54,6 +65,7 @@ function TopRight(props) {
     transitionSpeed
   } = options;
   const [currentDirection, setCurrentDirection] = React.useState(direction);
+  const [show, setShow] = React.useState(false);
 
   const toggleDirection = React.useCallback(() => {
     const nextDirection = getNextValue('direction', currentDirection);
@@ -76,30 +88,41 @@ function TopRight(props) {
       }
     })
   }, [setOptions])
+
+  const toggleShow = React.useCallback((event) => {
+    setShow(show => !show)
+  }, [])
+ 
   const directionString = direction === 'v' ? 'VRT' : 'HRZ';
+  const DirectionSvg = direction === 'v' ? Varrow : Harrow;
   const lengthString = length === FAST ? 'FAST' : 
     length === NORMAL ? 'NORM' : 'SLOW';
   const webCodecString = webCodecEnabled ? 'HQ':'LQ';
   return (
-    <Container>
-      <WebCodecEnabled
-        webCodecEnabled={webCodecEnabled}
-      >
-        {webCodecString}
-      </WebCodecEnabled>
-      <ToggleLength
-        id="length"
-        onClick={toggleOptions}
-      >
-        {lengthString}
-      </ToggleLength>
-      <ToggleDirection
-        id="direction"
-        onClick={toggleDirection}
-      >
-        {directionString}
-      </ToggleDirection>
-    </Container>
+    // <Draggable bounds={{right:100}}>
+      <Container show={show}>
+        <Dragger
+          onClick={toggleShow}
+        ></Dragger>
+        <WebCodecEnabled
+          webCodecEnabled={webCodecEnabled}
+        >
+          {webCodecString}
+        </WebCodecEnabled>
+        <ToggleLength
+          id="length"
+          onClick={toggleOptions}
+        >
+          {lengthString}
+        </ToggleLength>
+        <ToggleDirection
+          id="direction"
+          onClick={toggleDirection}
+        >
+          {directionString}
+        </ToggleDirection>
+      </Container>
+    // {/* </Draggable> */}
   )
 }
 

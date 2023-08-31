@@ -54,11 +54,6 @@ function App() {
         saveDirection={saveDirection}
         webCodecEnabled={webCodecEnabled}
       ></TopRight>
-      {/* <Percentage
-        direction={direction}
-        percentage={percentage}
-        setPercentage={setPercentage}
-      ></Percentage> */}
       <PercentageContainer
         direction={direction}
         percentage={percentage}
