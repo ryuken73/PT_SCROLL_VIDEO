@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as Harrow } from './images/h-arrow.svg'
-import { ReactComponent as Varrow } from './images/v-arrow.svg'
 
 const Container = styled.div`
   position: fixed;
@@ -21,7 +19,7 @@ const Dragger = styled.div`
   background: white !important;
   height: 20px;
   margin-right: 5px;
-  opacity: 0.2
+  opacity: 0.2;
 `
 const ToggleDirection = styled.div`
   font-family: monospace;
@@ -94,7 +92,6 @@ function TopRight(props) {
   }, [])
  
   const directionString = direction === 'v' ? 'VRT' : 'HRZ';
-  const DirectionSvg = direction === 'v' ? Varrow : Harrow;
   const lengthString = length === FAST ? 'FAST' : 
     length === NORMAL ? 'NORM' : 'SLOW';
   const webCodecString = webCodecEnabled ? 'HQ':'LQ';
