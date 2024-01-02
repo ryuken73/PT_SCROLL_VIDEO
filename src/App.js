@@ -11,7 +11,7 @@ import useLocalStorage from './hooks/useLocalStorage';
 const Container = styled.div` `
 const DEFAULT_URL = "https://scrollyvideo.js.org/goldengate.mp4"
 const INITIAL_OPTIONS = {
-  useWebCodecs: true,
+  // useWebCodecs: false,
   transitionSpeed: 100,
   length: 150,
 }
@@ -29,7 +29,6 @@ function App() {
   const mp4Url = searchParams.get('url') || DEFAULT_URL;
   const {
     length,
-    useWebCodecs, 
     transitionSpeed
   } = options;
 
@@ -40,7 +39,7 @@ function App() {
       setWebCodecEnabled(true);
     }
   }, [])
-  // const useWebCodecs = JSON.parse(searchParams.get('smooth')) || false;
+  const useWebCodecs = JSON.parse(searchParams.get('smooth')) || false;
   // const direction = searchParams.get('direction') || 'h';
   // const transitionSpeed = searchParams.get('transition') || 100;
   console.log(mp4Url, direction, useWebCodecs, typeof(useWebCodecs), height, transitionSpeed)
